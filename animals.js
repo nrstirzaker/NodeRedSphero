@@ -1,12 +1,19 @@
 /*
- * Lion Robot
- * 
- * 
- * 
+ * animals.js
+ * # Define global variables
+ * # Define arrays of bots
+ * # Define Lion robot
+ * # Define Gnu robot
+ * # Loop on array and create robots
  * */
 
-
 var Cylon = require('cylon');
+
+/*
+ * Define global variables and arrays of bots
+ *
+ * */
+
 
 // Update Bluetooth ports with real values, add or remove robots 
 var lions = [
@@ -35,14 +42,20 @@ var lion_speed = 100;
 // Gnu speed: between 1 and 100
 var gnu_speed = 100;
 
+/*
+ * LION ROBOT: constantly moves, changes direction randomly every 5 seconds
+ *
+ * */
+
 var LionRobot = (function() {
   function LionRobot() {}
-
+  
+  // Define connections
   LionRobot.prototype.connection = [
   	{ port: '', name: '', adaptor: 'sphero' },
   	{ name: 'skynet', adaptor: 'skynet', uuid: "eee99e91-58aa-11e4-a406-e361fc970baa", token: "3vlrauvp274d9529ppan51ag3hr27qfr" }
   ];
-  
+  // Define device
   LionRobot.prototype.device = { name: 'sphero', driver: 'sphero' };
 
   LionRobot.prototype.born = function() {
@@ -103,14 +116,21 @@ var LionRobot = (function() {
 
 })();
 
+
+/*
+ * GNU ROBOT: listens to the chat room, go to opposite direction when the lion is changing direction
+ *
+ * */
+
 var GnuRobot = (function() {
   function GnuRobot() {}
 
+  // Define connections
   GnuRobot.prototype.connection = [
     { port: '', name: '', adaptor: 'sphero' },
     { name: 'skynet', adaptor: 'skynet', uuid: "eee99e91-58aa-11e4-a406-e361fc970baa", token: "3vlrauvp274d9529ppan51ag3hr27qfr" }
   ];
-  
+  // Define device
   GnuRobot.prototype.device = { name: 'sphero', driver: 'sphero' };
 
   GnuRobot.prototype.born = function() {
