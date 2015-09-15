@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sphero color',{
+        category: 'function',
+        color: '#FFFFFF',
+        defaults: {
+            name: {value:""},
+            port: {value:""},
+            spheroColor: {value:"white"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"sphero color";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="sphero color">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-name"><i class="icon-tag"></i>Port</label>
+        <input type="text" id="node-input-port" placeholder="Port">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="sphero color">
+    <p>Change the color o your sphero</p>
+</script>
