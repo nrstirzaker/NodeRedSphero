@@ -6,12 +6,13 @@
 var Cylon = require('cylon');
 
 Cylon.robot({
-  connection: { name: 'sphero', adaptor: 'sphero', port: '/dev/rfcomm0' },
+  connection: { name: 'sphero', adaptor: 'sphero', port: 'COM8' },
   device: { name: 'sphero', driver: 'sphero' },
 
   work: function(my) {
-    every((1).second(), function() {
+    every((5).second(), function() {
       my.sphero.roll(60, Math.floor(Math.random() * 360));
+
     });
   }
 }).start();
