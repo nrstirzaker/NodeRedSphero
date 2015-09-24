@@ -1,0 +1,4 @@
+*.backup
+*.log
+/nodes_sphero/*
+node_modules/*
