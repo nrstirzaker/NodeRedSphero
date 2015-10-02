@@ -2,3 +2,6 @@
 *.log
 /nodes_sphero/*
 node_modules/*
+/node_modules
+/projectFilesBackup
+.idea/*

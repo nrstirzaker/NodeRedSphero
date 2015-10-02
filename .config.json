@@ -277,6 +277,15 @@
      "enabled": true,
      "module": "node-red",
      "file": "C:\\Users\\nstirzak\\.node-red\\nodes\\spheroColor.js"
+    },
+    "spheroColor - Copy": {
+     "name": "spheroColor - Copy",
+     "types": [
+      "sphero color"
+     ],
+     "enabled": true,
+     "module": "node-red",
+     "file": "C:\\Users\\nstirzak\\.node-red\\nodes\\spheroColor - Copy.js"
     }
    }
   },

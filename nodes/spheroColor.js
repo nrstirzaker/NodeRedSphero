@@ -3,42 +3,45 @@ module.exports = function(RED) {
 
     var port = "";
     var node = null ;
+    var cylon = null;
     var sphero = null;
 
-    function getSphero(){
-        if (sphero === null ){
-            sphero = createSphero();
+    function instantiateCylonRobot(){
+        if (cylon === null ){
+            cylon = createSphero();
         }
-        return sphero;
+        return cylon;
     }
 
     function createSphero(){
 
         console.log('port: ' +port);
 
-        var sphero = Cylon.robot({
+        var cylon = Cylon.robot({
 
-            //this.status({fill:"red",shape:"ring",text:"disconnected"});
+            connections: {
+                sphero:{ adaptor: 'sphero', port: '/dev/rfcomm0' }
+            },
 
-
-
-            connections: { name: 'sphero', adaptor: 'sphero', port: 'COM8' },
-            devices: { name: 'sphero', driver: 'sphero' },
+            devices: {
+                sphero:{ driver: 'sphero' }
+            },
 
             work: function(me) {
 
-                console.log('sphero work started');
-                //node.status({fill:"green",shape:"dot",text:"connected"});
 
-                //me.sphero.setRGB(Math.floor(Math.random() * 100000));
-                //
-                //every((1).second(), function() {
-                //    console.log("Hello, human!");
-                //});
+
+                every((30).second(), function() {
+                    me.sphero.color('FFA5FF');
+                });
+                sphero = me.sphero;
+
+
             }
+
         }).start();
 
-        return sphero;
+        return cylon;
 
     }
 
@@ -51,12 +54,14 @@ module.exports = function(RED) {
     }
 
     function isHexColor(color){
-        return  /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
+        return  /(^[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
     }
 
-    function ColorChange(config) {
+    function ColourChange(config) {
 
         RED.nodes.createNode(this,config);
+
+        this.status({fill:"red",shape:"ring",text:"disconnected"});
 
         node = this;
         port = config.port;
@@ -65,13 +70,16 @@ module.exports = function(RED) {
         this.on('input', function(msg) {
             var color = msg.payload;
             config.spheroColor = color;
-            //console.log(msg);
-            console.log('color: ' + color);
+            node.log(msg);
+            node.log('color: ' + color);
 
-            var sphero = getSphero();
+            instantiateCylonRobot();
+
             if (isHexColor( color )){
-                sphero.setColor(color);
+                sphero.color(color);
             }
+
+            node.status({fill:"green",shape:"dot",text:"connected"});
 
         });
 
@@ -84,5 +92,5 @@ module.exports = function(RED) {
 
     }
 
-    RED.nodes.registerType("sphero color",ColorChange);
+    RED.nodes.registerType("sphero color",ColourChange);
 }
